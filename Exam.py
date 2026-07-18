@@ -1,4 +1,4 @@
-import Assessment as Assessment
+from Assessment import Assessment
 
 class Exam(Assessment):
     def __init__(self, title, score):

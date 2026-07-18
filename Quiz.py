@@ -1,4 +1,4 @@
-import Assessment as Assessment
+from Assessment import Assessment
 
 class Quiz(Assessment):
     def __init__(self, title, max_score):
@@ -15,7 +15,7 @@ class Quiz(Assessment):
             return "Great quiz result!"
         elif percentage >= 70:
             return "Good quiz result!"
-        elif percentage >= 40:
+        elif percentage >= 55:
             return "Keep practicing!"
         else:
             return "You need more practicing!"

@@ -1,4 +1,4 @@
-import Assessment as Assessment
+from Assessment import Assessment
 
 class Project(Assessment):
     def __init__(self, title, max_score):

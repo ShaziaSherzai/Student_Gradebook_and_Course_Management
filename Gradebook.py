@@ -14,7 +14,7 @@ class Gradebook:
     def enroll_students(self, students_id, course_code):
         if students_id in self.students and course_code in self.courses:
             if students_id not in self.grades:
-                self.grade[students_id] = {}
+                self.grades[students_id] = {}
             self.grades[students_id][course_code] = {}
         else:
             print("Students or course not found")
@@ -51,10 +51,14 @@ class Gradebook:
         for student_id, student in self.students.items():
             if keyword.lower() in student_id or keyword.lower() in student.name.lower():
                 return student
-            return None
+        return None
 
     def delete_student(self, student_id):
         if student_id in self.students:
             del self.students[student_id]
             if student_id in self.grades:
                 del self.grades[student_id]
+
+            for course in self.courses.values():
+                if student_id in course.students:
+                    course.students.remove(student_id)

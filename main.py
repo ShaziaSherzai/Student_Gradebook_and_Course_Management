@@ -22,7 +22,7 @@ while True:
     choice = int(input("Choose an option: "))
 
     if choice == 1:
-        student_id = int(input("Enter student ID: "))
+        student_id = input("Enter student ID: ")
         name = input("Student Name: ")
         email = input("Email Address: ")
         student = Student(student_id, name, email, [])
@@ -32,8 +32,51 @@ while True:
     elif choice == 2:
         course_code = input("Course Code: ")
         course_name = input("Course Name: ")
-        course = Course(course_code, course_name)
+        course = Course(course_code, course_name, [], [])
         gradebook.add_course(course)
         print("Course Added Successfully!")
+
+    elif choice == 3:
+        student_id = input("Student ID: ")
+        course_code = input("Course Code: ")
+        gradebook.enroll_students(student_id, course_code)
+        print("Student Enrolled Successfully!")
+
+    elif choice == 4:
+        course_code = input("Course Code: ")
+        title = input("Assessment Title: ")
+        max_score = int(input("Maximum Score: "))
+        assessment = Assessment(title, max_score)
+        gradebook.add_assessment(course_code, assessment)
+        print("Assessment Added Successfully!")
+
+    elif choice == 5:
+        student_id = input("Student ID: ")
+        course_code = input("Course Code: ")
+        assessment_title = input("Assessment Title: ")
+        score = float(input("Student Score: "))
+        gradebook.record_grade(student_id, course_code, assessment_title, score)
+        print("Assessment Recorded Successfully!")
+
+    elif choice == 6:
+        student_id = input("Student ID: ")
+        course_code = input("Course Code: ")
+        average = gradebook.calculate_average(student_id, course_code)
+        print(f"\nAverage Percentage: {average:.2f}%")
+        print("Result:", gradebook.get_result(average))
+
+    elif choice == 7:
+        student_id = input("Student ID: ")
+        gradebook.show_report(student_id)
+
+    elif choice == 0:
+        print("System Closed. Thank you😊")
+        break
+
+    else:
+        print("Invalid choice! please try again.")
+
+
+
 
 
