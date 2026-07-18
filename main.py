@@ -40,7 +40,7 @@ while True:
         student_id = input("Student ID: ")
         course_code = input("Course Code: ")
         gradebook.enroll_students(student_id, course_code)
-        print("Student Enrolled Successfully!")
+
 
     elif choice == 4:
         course_code = input("Course Code: ")
