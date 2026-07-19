@@ -9,13 +9,13 @@ class Quiz(Assessment):
 
     def grade_message(self, score):
         percentage = self.calculate_percentage(score)
-        if percentage >= 90:
+        if percentage >= 10:
             return "Excellent quiz result!"
-        elif percentage >= 80:
+        elif percentage >= 8:
             return "Great quiz result!"
-        elif percentage >= 70:
+        elif percentage >= 7:
             return "Good quiz result!"
-        elif percentage >= 55:
+        elif percentage >= 5:
             return "Keep practicing!"
         else:
             return "You need more practicing!"

@@ -11,25 +11,56 @@ class Gradebook:
     def add_course(self, course):
         self.courses[course.course_code] = course
 
-    def enroll_students(self, students_id, course_code):
-        if students_id in self.students and course_code in self.courses:
-            if students_id not in self.grades:
-                self.grades[students_id] = {}
-            self.grades[students_id][course_code] = {}
+    def enroll_students(self, student_id, course_code):
+        if student_id in self.students and course_code in self.courses:
+            if student_id not in self.grades:
+                self.grades[student_id] = {}
+            if course_code not in self.grades[student_id]:
+                self.grades[student_id][course_code] = {}
+
+            self.students[student_id].enrol_course(course_code)
+            self.courses[course_code].add_student(student_id)
+            print("Student enrolled successfully!")
         else:
-            print("Students or course not found")
+            print("Students or course not found.")
 
     def add_assessment(self, course_code, assessment):
         if course_code in self.courses:
             self.courses[course_code].assessments.append(assessment)
 
     def record_grade(self, students_id, course_code, assessment_title, score):
-        if students_id in self.students and course_code in self.courses and assessment_title in self.courses[course_code].assessments:
-            self.grades[students_id][course_code][assessment_title] = score
+        if students_id not in self.students:
+            print("Student not found")
+            return
+        if course_code not in self.courses:
+            print("Course not found")
+            return
+        assessment = self.courses[course_code].find_assessments(assessment_title)
+        if assessment is None:
+            print("Assessment not found")
+            return
+        self.grades[students_id][course_code][assessment_title] = score
+        print("Grade recorded successfully!")
 
     def calculate_average(self, students_id, course_code):
-        scores = self.grades.get(students_id, {}).get(course_code, {})
-        return sum(scores) / len(scores) if scores else 0
+        grades = self.grades.get(students_id, {}).get(course_code, {})
+        if not grades:
+            return 0
+        total_percentage = 0
+        count = 0
+
+        for assessment in self.courses[course_code].assessments:
+            if assessment.title in grades:
+                score = grades[assessment.title]
+                percentage = score / assessment.max_score * 100
+                total_percentage += percentage
+                count += 1
+
+        if count == 0:
+            return 0
+        return total_percentage / count
+
+
 
     def get_result(self, average):
         return "Passed" if average >= self.passing_grade else "Failed"
@@ -39,13 +70,29 @@ class Gradebook:
             print("Student not found")
             return
         student = self.students[student_id]
-        print(f"Report for {student.student_id}")
-        for course_code, assessments in self.grades.get(student_id, {}).items():
-            avg = self.calculate_average(student_id, course_code)
-            result = self.get_result(avg)
-            print(f"course: {self.courses[course_code].course_name}")
-            print(f"Grades: {assessments}")
-            print(f"Average: {avg:.2f} {result}")
+        print("\n=======Student report========")
+        print(f"Student ID: {student.student_id}")
+        print(f"Name: {student.name}")
+        print(f"Email: {student.email}")
+
+        for course_code, grades in self.grades.get(student_id, {}).items():
+            course = self.courses[course_code]
+
+            print(f"\ncourse: {course.course_code}")
+            print(f"\ngrades: ")
+
+            for assessment in course.assessments:
+                if assessment.title in grades:
+                    score = grades[assessment.title]
+                    percentage = score / assessment.max_score * 100
+
+                    print(f"{assessment.title}: {score}/{assessment.max_score} = {percentage:.0f}%")
+
+            average = self.calculate_average(student_id, course_code)
+            result = self.get_result(average)
+
+            print(f"\nAverage: {average:.2f}%")
+            print(f"result: {result}")
 
     def search_student(self, keyword):
         for student_id, student in self.students.items():

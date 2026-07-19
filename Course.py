@@ -11,7 +11,7 @@ class Course:
     def add_assessment(self, assessment):
         self.assessments.append(assessment)
 
-    def find_assignments(self, title):
+    def find_assessments(self, title):
         for assessment in self.assessments:
             if assessment.title == title:
                 return assessment
@@ -21,4 +21,4 @@ class Course:
         print(f"course code: {self.course_code}")
         print(f"course name: {self.course_name}")
         print(f"students: {len(self.students)}")
-        print(f"assignments: {len(self.assessments)}")
+        print(f"assessments: {len(self.assessments)}")

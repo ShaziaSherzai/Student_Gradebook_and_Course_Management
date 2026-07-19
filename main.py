@@ -1,8 +1,5 @@
 from Student import Student
 from Course import Course
-from Quiz import Quiz
-from Exam import Exam
-from Project import Project
 from Assessment import Assessment
 from Gradebook import Gradebook
 
@@ -19,9 +16,9 @@ while True:
     print("7. Show Student Report")
     print("0. Exit")
 
-    choice = int(input("Choose an option: "))
+    choice = input("Choose an option: ")
 
-    if choice == 1:
+    if choice == "1":
         student_id = input("Enter student ID: ")
         name = input("Student Name: ")
         email = input("Email Address: ")
@@ -29,20 +26,20 @@ while True:
         gradebook.add_student(student)
         print("Student Added Successfully!")
 
-    elif choice == 2:
+    elif choice == "2":
         course_code = input("Course Code: ")
         course_name = input("Course Name: ")
         course = Course(course_code, course_name, [], [])
         gradebook.add_course(course)
         print("Course Added Successfully!")
 
-    elif choice == 3:
+    elif choice == "3":
         student_id = input("Student ID: ")
         course_code = input("Course Code: ")
         gradebook.enroll_students(student_id, course_code)
 
 
-    elif choice == 4:
+    elif choice == "4":
         course_code = input("Course Code: ")
         title = input("Assessment Title: ")
         max_score = int(input("Maximum Score: "))
@@ -50,26 +47,25 @@ while True:
         gradebook.add_assessment(course_code, assessment)
         print("Assessment Added Successfully!")
 
-    elif choice == 5:
+    elif choice == "5":
         student_id = input("Student ID: ")
         course_code = input("Course Code: ")
         assessment_title = input("Assessment Title: ")
         score = float(input("Student Score: "))
         gradebook.record_grade(student_id, course_code, assessment_title, score)
-        print("Assessment Recorded Successfully!")
 
-    elif choice == 6:
+    elif choice == "6":
         student_id = input("Student ID: ")
         course_code = input("Course Code: ")
         average = gradebook.calculate_average(student_id, course_code)
         print(f"\nAverage Percentage: {average:.2f}%")
         print("Result:", gradebook.get_result(average))
 
-    elif choice == 7:
+    elif choice == "7":
         student_id = input("Student ID: ")
         gradebook.show_report(student_id)
 
-    elif choice == 0:
+    elif choice == "0":
         print("System Closed. Thank you😊")
         break
 
