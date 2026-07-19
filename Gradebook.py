@@ -95,10 +95,12 @@ class Gradebook:
             print(f"result: {result}")
 
     def search_student(self, keyword):
-        for student_id, student in self.students.items():
-            if keyword.lower() in student_id or keyword.lower() in student.name.lower():
+       keyword = keyword.lower()
+       for student_id, student in self.students.items():
+            if (keyword in student_id.lower() or
+                    keyword in student.name.lower()):
                 return student
-        return None
+       return None
 
     def delete_student(self, student_id):
         if student_id in self.students:

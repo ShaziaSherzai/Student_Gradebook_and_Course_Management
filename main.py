@@ -14,6 +14,8 @@ while True:
     print("5. Record student grade")
     print("6. calculate Student Average")
     print("7. Show Student Report")
+    print("8. Search Student")
+    print("9. Delete Student")
     print("0. Exit")
 
     choice = input("Choose an option: ")
@@ -64,6 +66,24 @@ while True:
     elif choice == "7":
         student_id = input("Student ID: ")
         gradebook.show_report(student_id)
+
+    elif choice == "8":
+        keyword = input("Enter Student ID or Name: ")
+        student = gradebook.search_student(keyword)
+        if student:
+            print("\nStudent Found")
+            student.display_info()
+        else:
+            print("\nStudent Not Found")
+
+    elif choice == "9":
+        student_id = input("Enter student ID to delete: ")
+
+        if student_id in gradebook.students:
+            gradebook.delete_student(student_id)
+            print("Student Deleted Successfully!")
+        else:
+            print("Student Not Found")
 
     elif choice == "0":
         print("System Closed. Thank you😊")
