@@ -65,6 +65,27 @@ class Gradebook:
     def get_result(self, average):
         return "Passed" if average >= self.passing_grade else "Failed"
 
+    def get_letter_grade(self, average):
+        if average >= 95:
+            return "A+"
+        elif average >= 90:
+            return "A"
+        elif average >= 85:
+            return "B+"
+        elif average >= 80:
+            return "B"
+        elif average >= 75:
+            return "C+"
+        elif average >= 70:
+            return "C"
+        elif average >= 65:
+            return "D+"
+        elif average >= 60:
+            return "D"
+        else:
+            return "F"
+
+
     def show_report(self, student_id):
         if student_id not in self.students:
             print("Student not found")
@@ -90,8 +111,10 @@ class Gradebook:
 
             average = self.calculate_average(student_id, course_code)
             result = self.get_result(average)
+            letter_grade = self.get_letter_grade(average)
 
             print(f"\nAverage: {average:.2f}%")
+            print(f"Letter grade: {letter_grade}")
             print(f"result: {result}")
 
     def search_student(self, keyword):
