@@ -3,6 +3,7 @@ class Gradebook:
         self.students = {}
         self.courses = {}
         self.grades = {}
+        self.comments = {}
         self.passing_grade = passing_grade
 
     def add_student(self, student):
@@ -85,6 +86,16 @@ class Gradebook:
         else:
             return "F"
 
+    def add_teacher_comment(self,student_id, comment):
+        if student_id in self.students:
+            self.comments[student_id] = comment
+            print("Teacher comment added successfully!")
+        else:
+            print("Student not found")
+
+    def get_teacher_comment(self, student_id):
+        return self.comments.get(student_id, "No teacher comment available.")
+
 
     def show_report(self, student_id):
         if student_id not in self.students:
@@ -116,6 +127,9 @@ class Gradebook:
             print(f"\nAverage: {average:.2f}%")
             print(f"Letter grade: {letter_grade}")
             print(f"result: {result}")
+
+            comment = self.get_teacher_comment(student_id)
+            print(f"\nTeacher comment: {comment}")
 
     def search_student(self, keyword):
        keyword = keyword.lower()

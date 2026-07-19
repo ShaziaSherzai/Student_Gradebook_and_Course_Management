@@ -13,17 +13,18 @@ while True:
     print("4. Add Assessment")
     print("5. Record student grade")
     print("6. calculate Student Average")
-    print("7. Show Student Report")
-    print("8. Search Student")
-    print("9. Delete Student")
+    print("7. Add Teacher Comment")
+    print("8. Show Student Report")
+    print("9. Search Student")
+    print("10. Delete Student")
     print("0. Exit")
 
     choice = input("Choose an option: ")
 
     if choice == "1":
-        student_id = input("Enter student ID: ")
-        name = input("Student Name: ")
-        email = input("Email Address: ")
+        student_id = input("Enter student ID: ").strip()
+        name = input("Student Name: ").strip()
+        email = input("Email Address: ").strip()
         student = Student(student_id, name, email, [])
         gradebook.add_student(student)
         print("Student Added Successfully!")
@@ -50,10 +51,17 @@ while True:
         print("Assessment Added Successfully!")
 
     elif choice == "5":
-        student_id = input("Student ID: ")
-        course_code = input("Course Code: ")
-        assessment_title = input("Assessment Title: ")
-        score = float(input("Student Score: "))
+        student_id = input("Student ID: ").strip()
+        course_code = input("Course Code: ").strip()
+        assessment_title = input("Assessment Title: ").strip()
+
+        while True:
+            try:
+                score = float(input("score: "))
+                break
+            except ValueError:
+                print("Invalid score. Please try again.")
+
         gradebook.record_grade(student_id, course_code, assessment_title, score)
 
     elif choice == "6":
@@ -64,10 +72,15 @@ while True:
         print("Result:", gradebook.get_result(average))
 
     elif choice == "7":
+        student_id = input("Student ID:")
+        comment = input("Teacher Comment: ")
+        gradebook.add_teacher_comment(student_id, comment)
+
+    elif choice == "8":
         student_id = input("Student ID: ")
         gradebook.show_report(student_id)
 
-    elif choice == "8":
+    elif choice == "9":
         keyword = input("Enter Student ID or Name: ")
         student = gradebook.search_student(keyword)
         if student:
@@ -76,7 +89,7 @@ while True:
         else:
             print("\nStudent Not Found")
 
-    elif choice == "9":
+    elif choice == "10":
         student_id = input("Enter student ID to delete: ")
 
         if student_id in gradebook.students:
